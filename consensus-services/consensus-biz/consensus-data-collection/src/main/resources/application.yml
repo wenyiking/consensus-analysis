@@ -1,0 +1,26 @@
+server:
+  port: 9102
+  connection-timeout: 300s
+  servlet:
+    context-path: /consensus-data-collection
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1024Mb      #最大上传文件限制：配置默认值1Mb
+      max-request-size: 1024Mb   #最大请求控制：配置默认值10Mb
+  application:
+    name: consensus-data-collection
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+logging:
+  config: classpath:logback.xml
