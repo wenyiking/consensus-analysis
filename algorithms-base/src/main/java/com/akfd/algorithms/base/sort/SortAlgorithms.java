@@ -1,12 +1,4 @@
-package com.akfd.algorithms.base.sort;/*
- * FileName：DecisionControlController
- * Description：排序算法合集
- *
- * History：
- * @author wangwen
- * @date 2019/10/7
- * @update 新建文件
- */
+package com.akfd.algorithms.base.sort;
 
 import com.akfd.algorithms.base.define.ExceptionDefine;
 
