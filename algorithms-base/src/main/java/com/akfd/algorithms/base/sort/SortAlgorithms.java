@@ -1,12 +1,4 @@
-package com.akfd.algorithms.base.sort;/*
- * FileName：DecisionControlController
- * Description：排序算法合集
- *
- * History：
- * @author wangwen
- * @date 2019/10/7
- * @update 新建文件
- */
+package com.akfd.algorithms.base.sort;
 
 import com.akfd.algorithms.base.define.ExceptionDefine;
 
@@ -23,7 +15,9 @@ import java.util.Arrays;
 public class SortAlgorithms {
     private final static Logger LOG = LoggerFactory.getLogger(SortAlgorithms.class);
 
-    public synchronized static <T extends Comparable<? super T>> T[] quickSort(T[] originalArray, int start, int end) {
+
+
+    public  static <T extends Comparable<? super T>> T[] quickSort(T[] originalArray, int start, int end) {
         /**
          * @Description   快速排序算法，传入参数需要继承 Comparable 接口
          *  该方法线程安全，快速排序算法逻辑请上网查阅。
@@ -39,11 +33,7 @@ public class SortAlgorithms {
                 return sortArray;
             }
             int pivot = getPivot(sortArray, start, end);
-            if (pivot == start) {
-                // LOG.info("本次pivot="+pivot);
 
-                //  return  sortArray;
-            }
             // LOG.info("本次pivot="+pivot);
             quickSort(sortArray, start, pivot - 1);
             quickSort(sortArray, pivot + 1, end);
@@ -58,7 +48,7 @@ public class SortAlgorithms {
     }
 
     private static <T extends Comparable<? super T>> int getPivot(T[] tempArray, int start, int end) throws ExceptionDefine {
-        /**
+        /*
          * @Description //快速排序寻找分界点
          * @Param T[] tempArray 待排序数组；
          * int start,int end  本次寻找分界点从参数指定的数组起始点下标和终止下标区间段开始
@@ -113,7 +103,11 @@ public class SortAlgorithms {
         return start;
     }
 
-//    public synchronized static <T extends Comparable<? super T>> T[] mergeSort(T[] originalArray, int start, int end){
-//
-//    }
+    public  static <T extends Comparable<? super T>> T[] quickSortFunction(T[] originalArray, int start, int end){
+        //
+        T[] copyOriginalArray=Arrays.copyOf(originalArray,originalArray.length);
+       return quickSort(copyOriginalArray,start,end);
+
+
+    }
 }
