@@ -12,10 +12,10 @@ import java.util.Arrays;
  * @version v1.0
  * @date 2019/10/7 19:57
  */
+
 public class SortAlgorithms {
+
     private final static Logger LOG = LoggerFactory.getLogger(SortAlgorithms.class);
-
-
 
     public  static <T extends Comparable<? super T>> T[] quickSort(T[] originalArray, int start, int end) {
         /**
@@ -102,6 +102,7 @@ public class SortAlgorithms {
 
         return start;
     }
+
 
     public  static <T extends Comparable<? super T>> T[] quickSortFunction(T[] originalArray, int start, int end){
         //

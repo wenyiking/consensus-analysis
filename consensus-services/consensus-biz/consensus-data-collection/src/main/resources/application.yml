@@ -1,5 +1,5 @@
 server:
-  port: 9102
+  port: 9104
   connection-timeout: 300s
   servlet:
     context-path: /consensus-data-collection

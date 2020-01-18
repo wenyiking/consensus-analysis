@@ -15,7 +15,9 @@ import com.akfd.algorithms.base.sort.SortAlgorithms;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * @author wangwen7
@@ -26,19 +28,56 @@ public class SortAlgorithmTest {
     private final static Logger LOG = LoggerFactory.getLogger(SortAlgorithms.class);
 
     public static void main(String[] args) {
+
+
+        List<Double> doubleList = new ArrayList<>();
+        for (int i = 0; i < 10; ++i) {
+            doubleList.add(Math.random() * 10000);
+        }
+
+
+        Stream<Double> streamDouble = doubleList.stream();
+        Stream<Double> map1 = streamDouble.map(new Function<Double, Double>() {
+            @Override
+            public Double apply(Double aDouble) {
+
+                return aDouble + 1.0;
+            }
+        });
+        Object[] paras = {"para1", "para2", "para3"};
+        LOG.info("输入参数 {},  {}.  {}", paras);
+
+
+        Map<String, String[]> map = new HashMap<String, String[]>();
+        map.put("111", new String[]{"1", "2", "3"});
+        map.put("222", new String[]{
+                "3", "4", "5"
+        });
+//        map.put("333",new Object[]{
+//                "666","777"
+//        });
+
+//        for(String keyString:map.keySet()){
+//            String [] getStringArray=map.get(keyString);
+//            System.out.println(getStringArray);
+//        }
+
+    }
+
+    public static void testQuickSort() {
         //SortAlgorithms.quickSort()
-        System.out.println((double) 1/3);
+        System.out.println((double) 1 / 3);
 
         for (int testTime = 0; testTime < 100; ++testTime) {
 
             TestClass[] testClassArray = new TestClass[200];
-           // System.out.println("==============排序前===========：");
+            // System.out.println("==============排序前===========：");
             for (int i = 0; i < testClassArray.length; ++i) {
                 testClassArray[i] = new TestClass();
                 long age = Math.round(Math.random() * 10000);
                 testClassArray[i].setAge(age);
                 testClassArray[i].setName("testname" + age);
-              //  System.out.println(testClassArray[i].toString());
+                //  System.out.println(testClassArray[i].toString());
 
             }
 
@@ -52,7 +91,7 @@ public class SortAlgorithmTest {
                 }
 
             }
-            if (isSort == false) {
+            if (!isSort) {
                 System.out.println("本次排序结果不正确");
                 System.out.println("==============排序后===========：");
                 for (TestClass testClassTemp : testClassArray) {
@@ -68,7 +107,6 @@ public class SortAlgorithmTest {
             }
         }
     }
-
 
     public static <T extends Comparable<? super T>> T[] quickSort(T[] originalArray, int start, int end) {
         /**

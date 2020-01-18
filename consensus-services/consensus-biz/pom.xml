@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>consensus-data-collection</module>
+        <module>consensus-apply-service</module>
     </modules>
 
 

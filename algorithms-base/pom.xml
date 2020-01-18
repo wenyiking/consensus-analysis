@@ -12,6 +12,8 @@
     <artifactId>algorithms-base</artifactId>
 
 <dependencies>
+
+
     <dependency>
         <groupId>net.logstash.logback</groupId>
         <artifactId>logstash-logback-encoder</artifactId>
