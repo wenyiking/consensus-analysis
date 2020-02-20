@@ -59,7 +59,7 @@
         <!--spark-->
         <spark.version>2.4.0</spark.version>
         <scala.major.version>2.11</scala.major.version>
-        <scala.version>2.11.8</scala.version>
+        <scala.version>2.13.1</scala.version>
 
         <!--test-->
         <cobertura.version>2.7</cobertura.version>
