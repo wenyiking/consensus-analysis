@@ -12,6 +12,7 @@
         <module>consensus-services</module>
         <module>common</module>
         <module>algorithms-base</module>
+        <module>generalduty-tool</module>
     </modules>
     <properties>
 
