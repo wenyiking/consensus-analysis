@@ -23,29 +23,36 @@ public class UDFClassLoader extends ClassLoader {
     /**
      * lib:表示加载的文件在jar包中
      */
-    private String lib;
+    private final String lib;
     /**
      * classes:表示加载的文件是单纯的class文件
      */
-    private String classes;
+    private final String classes;
     /**
      * 采取将所有的jar包中的class读取到内存中
      * 然后如果需要读取的时候，再从map中查找
      */
-    private Map<String, byte[]> map;
+    private final Map<String, byte[]> map;
 
-    private UDFClassLoader(String applicationRootPath) throws NoSuchMethodException, SecurityException, MalformedURLException {
-        lib = applicationRootPath + File.separator + "lib";
-        classes = applicationRootPath + File.separator + "classes";
-        map = new HashMap<String, byte[]>(256);
 
+    private UDFClassLoader(Build build){
+        lib = build.applicationRootPath + File.separator + "lib"+ File.separator;
+        classes = build.applicationRootPath + File.separator + "classes"+ File.separator;
+        map = new HashMap<String, byte[]>(build.initialCapacity);
+        LOG.setLevel(build.loggerLever);
+        LOG.info("lib path="+lib);
+        LOG.info("classes path="+classes);
         preReadJarFile();
     }
 
-    private UDFClassLoader(String applicationRootPath, Level loggerLever) throws NoSuchMethodException, SecurityException, MalformedURLException {
-        this(applicationRootPath);
-        LOG.setLevel(loggerLever);
-    }
+
+
+
+//    @Override
+//    public Class<?> loadClass(String name) throws ClassNotFoundException {
+//
+//        return findClass(name);
+//    }
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
@@ -70,6 +77,31 @@ public class UDFClassLoader extends ClassLoader {
         return null;
     }
 
+    private boolean readClassesPathFile(File classesPathFile){
+
+    /**
+     * @Author wangwen
+     * @Description //TODO
+     * @Date 22:47 2020/2/23
+       * @param classesPathFile  传入 classes 根目录，不是下层包路径，不然递归时完整包路径无法获取
+     * @return
+     **/
+        boolean flag=true;
+
+        if(classesPathFile.isDirectory()){
+           File[] subFiles=  classesPathFile.listFiles();
+           for(File subFile:subFiles){
+               //todo
+           }
+        }else{
+
+        }
+
+
+        return flag;
+    }
+
+
     /**
      * 从指定的classes文件夹下找到文件
      *
@@ -78,6 +110,7 @@ public class UDFClassLoader extends ClassLoader {
      */
     private byte[] getClassFromFileOrMap(String name) {
         String classPath = classes + name.replace('.', File.separatorChar) + ".class";
+        LOG.info("classPath="+classPath);
         File file = new File(classPath);
         if (file.exists()) {
             InputStream input = null;
@@ -144,6 +177,8 @@ public class UDFClassLoader extends ClassLoader {
             String name = je.getName();
             if (name.endsWith(".class")) {
                 String clss = name.replace(".class", "").replaceAll("/", ".");
+               // LOG.info("class in jar: "+clss);
+
                 if (this.findLoadedClass(clss) != null) {
                     continue;
                 }
@@ -172,6 +207,7 @@ public class UDFClassLoader extends ClassLoader {
         List<File> list = new ArrayList<File>();
         File[] files = new File(lib).listFiles();
         for (File f : files) {
+            LOG.info(f.getName());
             if (f.isFile() && f.getName().endsWith(".jar")) {
                 list.add(f);
             }
@@ -193,4 +229,31 @@ public class UDFClassLoader extends ClassLoader {
             readJAR(jar);
         }
     }
+
+    public static class Build{
+        private String applicationRootPath;
+        private Level loggerLever=Level.INFO;
+        private int  initialCapacity=1024;//默认装在类字节码的map 初始化容量
+
+        public Build(String applicationRootPath){
+            this.applicationRootPath=applicationRootPath;
+        }
+
+        public Build loggerLever(Level level){
+            this.loggerLever=level;
+            return this;
+        }
+
+        public Build classMapinitialCapacity(int initialCapacity){
+            this.initialCapacity=initialCapacity;
+            return this;
+        }
+
+        public UDFClassLoader Build(){
+           return new UDFClassLoader(this);
+        }
+
+
+    }
+
 }
