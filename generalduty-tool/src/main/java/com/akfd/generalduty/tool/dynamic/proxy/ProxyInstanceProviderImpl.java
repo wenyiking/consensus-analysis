@@ -16,24 +16,28 @@ import java.lang.reflect.Proxy;
  * @Created by wangwen7
  */
 
-public class ProxyInstanceProviderImpl<T> implements ProxyInstanceProvider<T> {
+public class ProxyInstanceProviderImpl implements ProxyInstanceProvider {
 
-    @SuppressWarnings("unchecked")
+
     @Override
     public Object newDynamicProxy(Object target) {
-        T proxyIstance = (T) Proxy.newProxyInstance(target.getClass().getClassLoader(),
+        Object proxyIstance = Proxy.newProxyInstance(target.getClass().getClassLoader(),
                 target.getClass().getInterfaces(),
                 new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        Object invoke = method.invoke(proxy, args);
-                        return invoke;
+                        System.out.println("before代理方法");
+                        Object object = method.invoke(target, args);
+                        System.out.println("after代理方法");
+                        return object;
                     }
                 });
 
         return proxyIstance;
 
     }
+
+
 }
 
 

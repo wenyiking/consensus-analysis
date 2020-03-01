@@ -20,37 +20,37 @@ public class DynamicProxyFactory {
     private static final Logger LOG = Logger.getLogger("DynamicProxyFactory");
     private DynamicProxyFactory(){ }
     private static final Map<String, ProxyInstanceProvider> PROVIDERS=new ConcurrentHashMap<String, ProxyInstanceProvider>(1024);
-    public static final String  DEFAULT_PROVIDER_NAME="com.akfd.generalduty.tool.dynamic.proxy.interfaces.DynamicProxyProviderImpl";
+    public static final String DEFAULT_PROVIDER_NAME = "com.akfd.generalduty.tool.dynamic.proxy.interfaces.default.proxyProvider";
     public static void registerDefaultProvider(ProxyInstanceProvider dynamicProxyProvider){
             PROVIDERS.put(DEFAULT_PROVIDER_NAME,dynamicProxyProvider);
 
     }
 
-    public static void registerProvider(String name, ProxyInstanceProvider dynamicProxyProvider){
-        if(!PROVIDERS.containsKey(name)){
-            PROVIDERS.put(name,dynamicProxyProvider);
+    public static void registerProvider(String providerName, ProxyInstanceProvider dynamicProxyProvider) {
+        if (!PROVIDERS.containsKey(providerName)) {
+            PROVIDERS.put(providerName, dynamicProxyProvider);
         }else{
-            LOG.info("已存在 "+ name +" 代理提供者");
+            LOG.info("已存在 " + providerName + " 代理提供者");
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> T newProxyInstance(String name,T target) throws Exception{
-        ProxyInstanceProvider proxyInstanceProvider= PROVIDERS.get(name);
-        T proxyInstance=null;
+
+    public static Object newProxyInstance(String providerName, Object target) throws Exception {
+        ProxyInstanceProvider proxyInstanceProvider = PROVIDERS.get(providerName);
+        Object proxyInstance = null;
         if(null!=proxyInstanceProvider){
-             proxyInstance=(T) proxyInstanceProvider.newDynamicProxy(target);
+            proxyInstance = proxyInstanceProvider.newDynamicProxy(target);
         }else{
-            throw new Exception("no provider is register"+ name);
+            throw new Exception("no provider is register" + providerName);
         }
         return  proxyInstance;
     }
 
-    public static <T> T newProxyInstance(T target) throws  Exception{
+    public static Object newProxyInstance(Object target) throws Exception {
         ProxyInstanceProvider proxyInstanceProvider= PROVIDERS.get(DEFAULT_PROVIDER_NAME);
-        T proxyInstance=null;
+        Object proxyInstance = null;
         if(null!=proxyInstanceProvider){
-            proxyInstance=(T) proxyInstanceProvider.newDynamicProxy(target);
+            proxyInstance = proxyInstanceProvider.newDynamicProxy(target);
         }else{
             throw new Exception("no provider is register"+ DEFAULT_PROVIDER_NAME);
         }

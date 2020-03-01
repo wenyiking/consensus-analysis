@@ -11,7 +11,7 @@ import java.lang.reflect.Proxy;
  * @Date 2020/2/28 18:18
  * @Created by wangwen7
  */
-public interface ProxyInstanceProvider<T> {
-    T newDynamicProxy(T target);
+public interface ProxyInstanceProvider {
+    Object newDynamicProxy(Object target);
 
 }
