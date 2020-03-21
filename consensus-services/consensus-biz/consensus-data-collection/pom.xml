@@ -11,6 +11,14 @@
 
     <artifactId>consensus-data-collection</artifactId>
     <dependencies>
+
+        <dependency>
+            <groupId>com.akfd.products</groupId>
+            <artifactId>consensus-api</artifactId>
+            <version>${consensus.analysis.version}</version>
+        </dependency>
+
+
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi    解析excel-->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -262,6 +270,18 @@
         <dependency>
             <groupId>com.rabbitmq</groupId>
             <artifactId>amqp-client</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.5.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.11</version>
         </dependency>
 
 
