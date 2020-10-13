@@ -64,7 +64,7 @@
 
         <!--test-->
         <cobertura.version>2.7</cobertura.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <!--flink-->
         <flink.version>1.7.0</flink.version>
 
